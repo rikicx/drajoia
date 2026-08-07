@@ -92,6 +92,8 @@ function setupParallax() {
 function createDiamond3D(container) {
   if (!container || !window.WebGLRenderingContext) return;
 
+  const isBrandMark = container.matches('[data-brand-diamond]');
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
   camera.position.set(0, 0.05, 6.8);
@@ -209,15 +211,17 @@ function createDiamond3D(container) {
 
   let pointerX = 0;
   let pointerY = 0;
-  container.addEventListener('pointermove', (event) => {
-    const rect = container.getBoundingClientRect();
-    pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 0.35;
-    pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * 0.2;
-  }, { passive: true });
-  container.addEventListener('pointerleave', () => {
-    pointerX = 0;
-    pointerY = 0;
-  });
+  if (!isBrandMark) {
+    container.addEventListener('pointermove', (event) => {
+      const rect = container.getBoundingClientRect();
+      pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 0.35;
+      pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * 0.2;
+    }, { passive: true });
+    container.addEventListener('pointerleave', () => {
+      pointerX = 0;
+      pointerY = 0;
+    });
+  }
 
   const resize = () => {
     const rect = container.getBoundingClientRect();
@@ -231,7 +235,7 @@ function createDiamond3D(container) {
   const renderFrame = (time = 0) => {
     const scrollRotation = window.scrollY * 0.0012;
     if (!reducedMotion) {
-      group.rotation.y = time * 0.00032 + scrollRotation + pointerX;
+      group.rotation.y = time * (isBrandMark ? 0.00018 : 0.00032) + scrollRotation + pointerX;
       group.rotation.x += ((-0.08 - pointerY) - group.rotation.x) * 0.04;
       group.rotation.z = Math.sin(time * 0.00045) * 0.045;
       group.position.y = Math.sin(time * 0.0011) * 0.06;
@@ -322,3 +326,4 @@ document.querySelectorAll('#gold-particles, #cta-particles').forEach((canvas, in
 setupParallax();
 createDiamond3D(document.querySelector('#diamond-3d'));
 createDiamond3D(document.querySelector('#hero-diamond-3d'));
+document.querySelectorAll('[data-brand-diamond]').forEach(createDiamond3D);
