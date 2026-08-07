@@ -160,6 +160,53 @@ function createDiamond3D(container) {
   group.rotation.x = -0.08;
   scene.add(group);
 
+  const toothShape = new THREE.Shape();
+  toothShape.moveTo(-0.52, 0.42);
+  toothShape.bezierCurveTo(-0.5, 0.78, -0.22, 0.88, 0, 0.68);
+  toothShape.bezierCurveTo(0.22, 0.88, 0.5, 0.78, 0.52, 0.42);
+  toothShape.bezierCurveTo(0.54, 0.1, 0.36, -0.12, 0.28, -0.42);
+  toothShape.bezierCurveTo(0.2, -0.76, 0.06, -0.86, 0, -0.54);
+  toothShape.bezierCurveTo(-0.06, -0.86, -0.2, -0.76, -0.28, -0.42);
+  toothShape.bezierCurveTo(-0.36, -0.12, -0.54, 0.1, -0.52, 0.42);
+
+  const toothGeometry = new THREE.ExtrudeGeometry(toothShape, {
+    depth: 0.2,
+    bevelEnabled: true,
+    bevelSegments: 4,
+    bevelSize: 0.055,
+    bevelThickness: 0.055,
+    curveSegments: 20,
+  });
+  toothGeometry.center();
+
+  const tooth = new THREE.Mesh(toothGeometry, new THREE.MeshPhysicalMaterial({
+    color: 0xfff7dc,
+    metalness: 0.18,
+    roughness: 0.24,
+    clearcoat: 1,
+    clearcoatRoughness: 0.16,
+    emissive: 0x6b4310,
+    emissiveIntensity: 0.12,
+  }));
+  tooth.scale.setScalar(0.66);
+  tooth.position.set(0, -0.03, 0.24);
+  tooth.renderOrder = 2;
+  scene.add(tooth);
+
+  const toothOutline = new THREE.LineSegments(
+    new THREE.EdgesGeometry(toothGeometry, 28),
+    new THREE.LineBasicMaterial({ color: 0xd5a543, transparent: true, opacity: 0.72 }),
+  );
+  toothOutline.scale.copy(tooth.scale);
+  toothOutline.position.copy(tooth.position);
+  toothOutline.renderOrder = 3;
+  scene.add(toothOutline);
+
+  scene.add(new THREE.HemisphereLight(0xfff6d8, 0x4b2608, 2.1));
+  const toothLight = new THREE.DirectionalLight(0xffd47a, 3.2);
+  toothLight.position.set(-2.5, 3.5, 5);
+  scene.add(toothLight);
+
   let pointerX = 0;
   let pointerY = 0;
   container.addEventListener('pointermove', (event) => {
