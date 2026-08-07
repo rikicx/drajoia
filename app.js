@@ -104,14 +104,12 @@ function createDiamond3D(container) {
   container.appendChild(renderer.domElement);
 
   const positions = [];
-  const colors = [];
   const segments = 10;
   const topCenter = new THREE.Vector3(0, 0.9, 0);
   const point = new THREE.Vector3(0, -1.7, 0);
   const topRing = [];
   const upperRing = [];
   const lowerRing = [];
-  const palette = ['#fff3bf', '#efc46d', '#c88a2e', '#8b5318', '#f8d887', '#b66d20'];
 
   for (let index = 0; index < segments; index += 1) {
     const angle = (index / segments) * Math.PI * 2 + Math.PI / 10;
@@ -120,69 +118,47 @@ function createDiamond3D(container) {
     lowerRing.push(new THREE.Vector3(Math.cos(angle) * 1.43, 0.02, Math.sin(angle) * 1.43));
   }
 
-  const addTriangle = (a, b, c, color) => {
-    const facetColor = new THREE.Color(color);
+  const addTriangle = (a, b, c) => {
     [a, b, c].forEach((vertex) => {
       positions.push(vertex.x, vertex.y, vertex.z);
-      colors.push(facetColor.r, facetColor.g, facetColor.b);
     });
   };
 
   for (let index = 0; index < segments; index += 1) {
     const next = (index + 1) % segments;
-    addTriangle(topCenter, topRing[index], topRing[next], index % 2 ? '#fff8d9' : '#f5d989');
-    addTriangle(topRing[index], upperRing[index], upperRing[next], palette[index % palette.length]);
-    addTriangle(topRing[index], upperRing[next], topRing[next], palette[(index + 2) % palette.length]);
-    addTriangle(upperRing[index], lowerRing[index], lowerRing[next], index % 2 ? '#8a541d' : '#d39a3d');
-    addTriangle(upperRing[index], lowerRing[next], upperRing[next], index % 2 ? '#b87425' : '#f0c36b');
-    addTriangle(lowerRing[index], point, lowerRing[next], palette[(index + 3) % palette.length]);
+    addTriangle(topCenter, topRing[index], topRing[next]);
+    addTriangle(topRing[index], upperRing[index], upperRing[next]);
+    addTriangle(topRing[index], upperRing[next], topRing[next]);
+    addTriangle(upperRing[index], lowerRing[index], lowerRing[next]);
+    addTriangle(upperRing[index], lowerRing[next], upperRing[next]);
+    addTriangle(lowerRing[index], point, lowerRing[next]);
   }
 
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-  geometry.computeVertexNormals();
-
-  const material = new THREE.MeshPhysicalMaterial({
-    vertexColors: true,
-    flatShading: true,
-    metalness: 0.28,
-    roughness: 0.16,
-    clearcoat: 1,
-    clearcoatRoughness: 0.1,
-    transmission: 0.08,
-    thickness: 1.4,
-    ior: 2.25,
-    reflectivity: 1,
-    transparent: true,
-    opacity: 0.98,
-    side: THREE.DoubleSide,
-  });
 
   const group = new THREE.Group();
-  const gem = new THREE.Mesh(geometry, material);
-  group.add(gem);
-
-  const edgeGeometry = new THREE.EdgesGeometry(geometry, 14);
+  const edgeGeometry = new THREE.EdgesGeometry(geometry, 1);
   const edges = new THREE.LineSegments(edgeGeometry, new THREE.LineBasicMaterial({
-    color: 0xffedbb,
+    color: 0xf3cf7b,
     transparent: true,
-    opacity: 0.3,
+    opacity: 0.95,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
   }));
   group.add(edges);
+
+  const glowEdges = new THREE.LineSegments(edgeGeometry, new THREE.LineBasicMaterial({
+    color: 0xc6882e,
+    transparent: true,
+    opacity: 0.22,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  }));
+  glowEdges.scale.setScalar(1.012);
+  group.add(glowEdges);
   group.rotation.x = -0.08;
   scene.add(group);
-
-  scene.add(new THREE.AmbientLight(0xffe3ae, 1.45));
-  const keyLight = new THREE.PointLight(0xffe9bb, 42, 12);
-  keyLight.position.set(3.6, 4.2, 4.5);
-  scene.add(keyLight);
-  const rimLight = new THREE.PointLight(0xd68a26, 34, 10);
-  rimLight.position.set(-4, 0.5, 2.5);
-  scene.add(rimLight);
-  const backLight = new THREE.PointLight(0xfff7de, 26, 9);
-  backLight.position.set(0, -2.5, -3);
-  scene.add(backLight);
 
   let pointerX = 0;
   let pointerY = 0;
@@ -298,3 +274,4 @@ document.querySelectorAll('#gold-particles, #cta-particles').forEach((canvas, in
 
 setupParallax();
 createDiamond3D(document.querySelector('#diamond-3d'));
+createDiamond3D(document.querySelector('#hero-diamond-3d'));

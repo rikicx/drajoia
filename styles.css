@@ -203,9 +203,10 @@ h1 em, h2 em { color: var(--gold-light); font-weight: 500; }
 .portrait-caption { position: absolute; z-index: 2; left: 38px; bottom: 34px; display: grid; }
 .portrait-caption span { font: 600 27px var(--serif); }
 .portrait-caption small { color: var(--gold-light); font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.mini-diamond { position: absolute; z-index: 3; width: 100px; height: 100px; right: 2%; top: 16%; padding: 17px; color: var(--gold-light); background: rgba(18, 13, 8, .78); border: 1px solid rgba(230, 188, 100, .35); border-radius: 50%; box-shadow: 0 18px 45px rgba(0, 0, 0, .45); backdrop-filter: blur(10px); animation: float 4.6s ease-in-out infinite; }
-.mini-diamond svg { animation: miniGem 7s linear infinite; }
-.mini-diamond path, .cta-gem path { fill: none; stroke: currentColor; stroke-width: 1.2; }
+.mini-diamond { position: absolute; z-index: 3; width: 112px; height: 112px; right: 1%; top: 14%; padding: 7px; color: var(--gold-light); background: rgba(18, 13, 8, .76); border: 1px solid rgba(230, 188, 100, .35); border-radius: 50%; box-shadow: 0 18px 45px rgba(0, 0, 0, .45); backdrop-filter: blur(10px); animation: float 4.6s ease-in-out infinite; }
+.hero-diamond-3d { width: 100%; height: 100%; filter: drop-shadow(0 0 8px rgba(239,195,105,.3)); }
+.hero-diamond-3d canvas { display: block; width: 100%; height: 100%; }
+.cta-gem path { fill: none; stroke: currentColor; stroke-width: 1.2; }
 .hero-note { position: absolute; z-index: 3; left: -13%; bottom: 16%; display: grid; min-width: 125px; padding: 16px 20px; background: rgba(15, 12, 8, .8); border-left: 2px solid var(--gold); box-shadow: 0 18px 35px rgba(0,0,0,.25); backdrop-filter: blur(10px); }
 .hero-note span { font: 600 32px/1 var(--serif); }
 .hero-note small { margin-top: 3px; color: rgba(255,255,255,.52); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
@@ -234,8 +235,7 @@ h1 em, h2 em { color: var(--gold-light); font-weight: 500; }
 .diamond-halo { position: absolute; width: 360px; height: 360px; border: 1px solid rgba(224, 181, 89, .19); border-radius: 50%; box-shadow: 0 0 100px rgba(194, 127, 24, .16), inset 0 0 80px rgba(194, 127, 24, .08); }
 .diamond-halo::before, .diamond-halo::after { content: ""; position: absolute; inset: 28px; border: 1px dashed rgba(255, 235, 184, .14); border-radius: 50%; }
 .diamond-halo::after { inset: -38px; }
-.diamond-3d { position: relative; z-index: 2; width: min(430px, 100%); height: 430px; filter: drop-shadow(0 40px 34px rgba(0,0,0,.62)) drop-shadow(0 0 28px rgba(232,192,104,.12)); cursor: grab; }
-.diamond-3d::after { content: ""; position: absolute; z-index: -1; left: 20%; right: 20%; bottom: 7%; height: 12%; background: radial-gradient(ellipse, rgba(213,159,59,.34), transparent 68%); filter: blur(12px); transform: rotateX(68deg); }
+.diamond-3d { position: relative; z-index: 2; width: min(430px, 100%); height: 430px; filter: drop-shadow(0 0 18px rgba(232,192,104,.2)); cursor: grab; }
 .diamond-3d canvas { display: block; width: 100%; height: 100%; }
 .diamond-spark { position: absolute; color: #fff7d5; text-shadow: 0 0 18px #fff1af; animation: sparkle 2.2s ease-in-out infinite; }
 .spark-one { right: 16%; top: 18%; font-size: 31px; }
