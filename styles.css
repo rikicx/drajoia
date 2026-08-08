@@ -206,7 +206,6 @@ h1 em, h2 em { color: var(--gold-light); font-weight: 500; }
 .mini-diamond { position: absolute; z-index: 3; width: 112px; height: 112px; right: 1%; top: 14%; padding: 7px; color: var(--gold-light); background: rgba(18, 13, 8, .76); border: 1px solid rgba(230, 188, 100, .35); border-radius: 50%; box-shadow: 0 18px 45px rgba(0, 0, 0, .45); backdrop-filter: blur(10px); animation: float 4.6s ease-in-out infinite; }
 .hero-diamond-3d { width: 100%; height: 100%; filter: drop-shadow(0 0 8px rgba(239,195,105,.3)); }
 .hero-diamond-3d canvas { display: block; width: 100%; height: 100%; }
-.cta-gem path { fill: none; stroke: currentColor; stroke-width: 1.2; }
 .hero-note { position: absolute; z-index: 3; left: -13%; bottom: 16%; display: grid; min-width: 125px; padding: 16px 20px; background: rgba(15, 12, 8, .8); border-left: 2px solid var(--gold); box-shadow: 0 18px 35px rgba(0,0,0,.25); backdrop-filter: blur(10px); }
 .hero-note span { font: 600 32px/1 var(--serif); }
 .hero-note small { margin-top: 3px; color: rgba(255,255,255,.52); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
@@ -307,7 +306,8 @@ h1 em, h2 em { color: var(--gold-light); font-weight: 500; }
 .final-cta { position: relative; display: grid; place-items: center; min-height: 620px; overflow: hidden; color: #fffaf0; text-align: center; background: radial-gradient(circle at center, #28190b, #0a0806 58%); }
 .final-cta::after { content: ""; position: absolute; inset: 10% 15%; border: 1px solid rgba(224,181,89,.1); border-radius: 50%; animation: ctaRing 8s ease-in-out infinite; }
 .final-cta-inner { position: relative; z-index: 2; }
-.cta-gem { width: 65px; margin: 0 auto 22px; color: var(--gold-light); animation: miniGem 8s linear infinite; }
+.cta-logo-3d { width: 110px; height: 110px; margin: 0 auto 10px; filter: drop-shadow(0 0 11px rgba(239, 195, 105, .32)); }
+.cta-logo-3d canvas { display: block; width: 100%; height: 100%; }
 .final-cta p { color: var(--gold-light); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
 .final-cta h2 { margin: 14px 0 32px; font-size: clamp(56px, 7vw, 90px); }
 
